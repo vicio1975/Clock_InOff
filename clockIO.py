@@ -86,6 +86,11 @@ l2.grid(row=2,column=0,sticky="e")
 l2_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l2_1.grid(row=2,column=3)
 
+l3 = tk.Label(root,text="Hours done ", padx = 10,font=f_BO10)
+l3.grid(row=3,column=0,sticky="e")
+l3_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
+l3_1.grid(row=3,column=3)
+
 #Clock In 
 #hours
 T1_ = tk.StringVar()
@@ -110,21 +115,35 @@ m2 = tk.Entry(root,textvariable= M2_ , width=6,justify="center",font=f_10)
 m2.grid(row=2,column=2)
 m2.insert("end", "00")  
 
-c0 = tk.Button(root,text="Calculate",command=calc,pady=1,font=f_BO9)
-c0.config( height = 1, width = 8)
-c0.grid(row=3,column=0)
+#plus Hours
+T3_ = tk.StringVar()
+t3 = tk.Entry(root,textvariable= T3_ , width=6,justify="center",font=f_10)
+t3.grid(row=3,column=1)
+t3.insert("end", "00")  
+#plus minutes
+M3_ = tk.StringVar()
+m3 = tk.Entry(root,textvariable= M3_ , width=6,justify="center",font=f_10)
+m3.grid(row=3,column=2)
+m3.insert("end", "00")  
 
 
 ########### hours of work
 weekHours = 37.5
+
 l0 = tk.Label(root,text="Total Week's hours", padx = 10,font=f_BO10)   
 l0.grid(row=0,column=0)
 l0_1 = tk.Label(root,text="{}".format(weekHours),padx = 10,font=f_BO10)
 l0_1.grid(row=0,column=1)
 
+
+#Buttons
+c0 = tk.Button(root,text="Calculate",command=calc,font=f_BO9)
+c0.config( height = 2, width = 8)
+c0.grid(row=4,column=4)
+
 ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO9)
-ln.config( height = 1, width = 15)
-ln.grid(row=6,column=3)
-   
+ln.config( height = 2, width = 8)
+ln.grid(row=5,column=4)
+
     
 root.mainloop() #looping the frame
