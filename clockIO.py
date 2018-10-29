@@ -12,7 +12,7 @@ from tkinter import  messagebox
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("450x300+100+100")
+root.geometry("450x220+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
@@ -43,8 +43,15 @@ def calc():
     minIn = float(M1_.get())/60
     hout = float(T2_.get())
     minOut = float(M2_.get())/60
+    hleft = float(T3_.get())
+    mleft = float(M3_.get())/60
+
+    #In Time
     hIN  = hin + minIn
+    #Out Time
     hOUT = hout + minOut
+    #Left time
+    hLEFTover = hleft + mleft    
 
     if hOUT < hIN:
         messagebox.showwarning("Error","Off time is lower than In time!\n\n Remember to use a 24h format")
@@ -59,21 +66,35 @@ def calc():
         luncH = 0
 
     todayH = hOUT - hIN - luncH
-    hoursL = weekHours - todayH
+    hoursL = todayH - hLEFTover - 7.5
+    
+    hL = (todayH - hLEFTover - 7.5)
+    mL = (-(int(hoursL) - hoursL) * 60)
         
     l3 = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
     l3.grid(row = 4, column = 0)
-    l3_1 = tk.Label(root,text="{:1.2f}".format(todayH),padx = 10,font=f_BO10,
-                    fg = "red")
+    l3_1 = tk.Label(root,text="{:1.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
     l3_1.grid(row = 4, column = 1)
-    
-    l4 = tk.Label(root,text="Hours left", padx = 10,font=f_BO10,fg = "red")   
-    l4.grid(row = 5, column = 0)
-    l4_1 = tk.Label(root,text="{:1.2f}".format(hoursL),padx = 10,font=f_BO10,
-                    fg = "red")
-    l4_1.grid(row = 5, column = 1)
+    l3_2 = tk.Label(root,text="[hh]", font=f_BO10,fg="red")
+    l3_2.grid(row=4,column=2)
 
     
+    l4 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10,fg = "red")   
+    l4.grid(row = 5, column = 0)
+    l4_1 = tk.Label(root,text="{:2.0f}".format(int (hL)),padx = 10,font=f_BO10,fg = "red")
+    l4_1.grid(row = 5, column = 1)
+    l4_4 = tk.Label(root,text="[hh]", font=f_BO10,fg="red")
+    l4_4.grid(row=5,column=2)
+
+    l5 = tk.Label(root,text="Minutes leftover ", padx = 10,font=f_BO10,fg = "red")   
+    l5.grid(row = 6, column = 0)
+
+    l5_1 = tk.Label(root,text="{:2.0f}".format(mL),padx = 10,font=f_BO10,fg = "red")
+    l5_1.grid(row = 6, column = 1)
+    l5_2 = tk.Label(root,text="[mm]", font=f_BO10,fg="red")
+    l5_2.grid(row=6,column=2)
+    
+
 #input part
 #Clock in/out selection    
 l1 = tk.Label(root,text="Clock In ", padx = 10,font=f_BO10)
@@ -86,7 +107,7 @@ l2.grid(row=2,column=0,sticky="e")
 l2_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l2_1.grid(row=2,column=3)
 
-l3 = tk.Label(root,text="Hours done ", padx = 10,font=f_BO10)
+l3 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10)
 l3.grid(row=3,column=0,sticky="e")
 l3_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l3_1.grid(row=3,column=3)
@@ -115,35 +136,26 @@ m2 = tk.Entry(root,textvariable= M2_ , width=6,justify="center",font=f_10)
 m2.grid(row=2,column=2)
 m2.insert("end", "00")  
 
-#plus Hours
+#Hours Left
 T3_ = tk.StringVar()
 t3 = tk.Entry(root,textvariable= T3_ , width=6,justify="center",font=f_10)
 t3.grid(row=3,column=1)
 t3.insert("end", "00")  
-#plus minutes
+#minutes left
 M3_ = tk.StringVar()
 m3 = tk.Entry(root,textvariable= M3_ , width=6,justify="center",font=f_10)
 m3.grid(row=3,column=2)
 m3.insert("end", "00")  
 
-
 ########### hours of work
-weekHours = 37.5
-
-l0 = tk.Label(root,text="Total Week's hours", padx = 10,font=f_BO10)   
-l0.grid(row=0,column=0)
-l0_1 = tk.Label(root,text="{}".format(weekHours),padx = 10,font=f_BO10)
-l0_1.grid(row=0,column=1)
-
 
 #Buttons
-c0 = tk.Button(root,text="Calculate",command=calc,font=f_BO9)
+c0 = tk.Button(root,text="Calculate",command=calc,font=f_BO12)
 c0.config( height = 2, width = 8)
-c0.grid(row=4,column=4)
+c0.place(x=350,y=50)
 
-ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO9)
+ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO12)
 ln.config( height = 2, width = 8)
-ln.grid(row=5,column=4)
-
-    
+ln.place(x=350,y=120)
+   
 root.mainloop() #looping the frame
