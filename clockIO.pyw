@@ -12,7 +12,7 @@ from tkinter import  messagebox
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("455x250+100+100")
+root.geometry("465x250+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
