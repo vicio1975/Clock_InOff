@@ -12,7 +12,7 @@ from tkinter import  messagebox
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("450x220+100+100")
+root.geometry("455x250+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
@@ -35,6 +35,8 @@ f_BO12 = ("arial",12,"bold")
 rc = 30
 for i in range(10):
     root.rowconfigure(i, minsize=rc)
+    root.columnconfigure(i, minsize=60)
+
 
 ###function 
     
@@ -97,17 +99,17 @@ def calc():
 
 #input part
 #Clock in/out selection    
-l1 = tk.Label(root,text="Clock In ", padx = 10,font=f_BO10)
+l1 = tk.Label(root,text="Clock In ", padx = 20,font=f_BO10)
 l1.grid(row=1,column=0,sticky="e")
 l1_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l1_1.grid(row=1,column=3)
 
-l2 = tk.Label(root,text="Clock Out ", padx = 10,font=f_BO10)
+l2 = tk.Label(root,text="Clock Out ", padx = 20,font=f_BO10)
 l2.grid(row=2,column=0,sticky="e")
 l2_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l2_1.grid(row=2,column=3)
 
-l3 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10)
+l3 = tk.Label(root,text="Hours leftover ", padx = 20,font=f_BO10)
 l3.grid(row=3,column=0,sticky="e")
 l3_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
 l3_1.grid(row=3,column=3)
@@ -115,35 +117,35 @@ l3_1.grid(row=3,column=3)
 #Clock In 
 #hours
 T1_ = tk.StringVar()
-t1 = tk.Entry(root,textvariable= T1_ , width=6,justify="center",font=f_10)
+t1 = tk.Entry(root,textvariable= T1_ , width=8,justify="center",font=f_10)
 t1.grid(row=1,column=1)
 t1.insert("end", "00")  
 #minutes
 M1_ = tk.StringVar()
-m1 = tk.Entry(root,textvariable= M1_ , width=6,justify="center",font=f_10)
+m1 = tk.Entry(root,textvariable= M1_ , width=8,justify="center",font=f_10)
 m1.grid(row=1,column=2)
 m1.insert("end", "00")  
 
 #Clock Out
 #hours
 T2_ = tk.StringVar()
-t2 = tk.Entry(root,textvariable= T2_ , width=6,justify="center",font=f_10)
+t2 = tk.Entry(root,textvariable= T2_ , width=8,justify="center",font=f_10)
 t2.grid(row=2,column=1)
 t2.insert("end", "00")  
 #minutes
 M2_ = tk.StringVar()
-m2 = tk.Entry(root,textvariable= M2_ , width=6,justify="center",font=f_10)
+m2 = tk.Entry(root,textvariable= M2_ , width=8,justify="center",font=f_10)
 m2.grid(row=2,column=2)
 m2.insert("end", "00")  
 
 #Hours Left
 T3_ = tk.StringVar()
-t3 = tk.Entry(root,textvariable= T3_ , width=6,justify="center",font=f_10)
+t3 = tk.Entry(root,textvariable= T3_ , width=8,justify="center",font=f_10)
 t3.grid(row=3,column=1)
 t3.insert("end", "00")  
 #minutes left
 M3_ = tk.StringVar()
-m3 = tk.Entry(root,textvariable= M3_ , width=6,justify="center",font=f_10)
+m3 = tk.Entry(root,textvariable= M3_ , width=8,justify="center",font=f_10)
 m3.grid(row=3,column=2)
 m3.insert("end", "00")  
 
