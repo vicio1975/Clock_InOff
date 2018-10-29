@@ -79,14 +79,14 @@ def calc():
     l3_2.grid(row=4,column=2)
 
     
-    l4 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10,fg = "red")   
+    l4 = tk.Label(root,text="Hours leftover ", padx = -20,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0)
     l4_1 = tk.Label(root,text="{:2.0f}".format(int (hL)),padx = 10,font=f_BO10,fg = "red")
     l4_1.grid(row = 5, column = 1)
     l4_4 = tk.Label(root,text="[hh]", font=f_BO10,fg="red")
     l4_4.grid(row=5,column=2)
 
-    l5 = tk.Label(root,text="Minutes leftover ", padx = 10,font=f_BO10,fg = "red")   
+    l5 = tk.Label(root,text="Minutes leftover ", padx = -40,font=f_BO10,fg = "red")   
     l5.grid(row = 6, column = 0)
 
     l5_1 = tk.Label(root,text="{:2.0f}".format(mL),padx = 10,font=f_BO10,fg = "red")
