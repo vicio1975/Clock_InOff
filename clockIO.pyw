@@ -156,10 +156,10 @@ m3.insert("end", "00")
 #Buttons
 c0 = tk.Button(root,text="Calculate",command=calc,font=f_BO12)
 c0.config( height = 2, width = 8)
-c0.place(x=350,y=50)
+c0.place(x=350,y=130)
 
 ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO12)
 ln.config( height = 2, width = 8)
-ln.place(x=350,y=120)
+ln.place(x=350,y=185)
    
 root.mainloop() #looping the frame
