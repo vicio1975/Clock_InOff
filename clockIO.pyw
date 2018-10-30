@@ -43,8 +43,10 @@ for i in range(10):
 def calc():
     hin = float(T1_.get())
     minIn = float(M1_.get())/60
+    
     hout = float(T2_.get())
     minOut = float(M2_.get())/60
+    
     hleft = float(T3_.get())
     mleft = float(M3_.get())/60
 
@@ -57,7 +59,10 @@ def calc():
 
     if hOUT < hIN:
         messagebox.showwarning("Error","Off time is lower than In time!\n\n Remember to use a 24h format")
-    
+    elif hIN == 0:
+        messagebox.showwarning("Error","Please add some input!\n\n ... remember to use a 24h format")
+    elif hIN < 6.5:
+        messagebox.showwarning("Error","Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
     elif hOUT <= 12.5:
         luncH = 0
 
@@ -68,33 +73,30 @@ def calc():
         luncH = 0
 
     todayH = hOUT - hIN - luncH
-    hoursL = todayH - hLEFTover - 7.5
     
-    hL = (todayH - hLEFTover - 7.5)
-    mL = (-(int(hoursL) - hoursL) * 60)
-        
+    hoursL = (todayH + hLEFTover) - 7.5
+    
+    hL = int(abs(hoursL))
+    mL = int(abs(hoursL-hL) * 60)
+
     l3 = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
     l3.grid(row = 4, column = 0)
-    l3_1 = tk.Label(root,text="{:1.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
+    l3_1 = tk.Label(root,text="{:02.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
     l3_1.grid(row = 4, column = 1)
-    l3_2 = tk.Label(root,text="[hh]", font=f_BO10,fg="red")
+    l3_2 = tk.Label(root,text="hours", font=f_BO10,fg="red")
     l3_2.grid(row=4,column=2)
 
-    
-    l4 = tk.Label(root,text="Hours leftover ", padx = -20,font=f_BO10,fg = "red")   
+    if (hoursL < 0) :
+        time = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
+    elif (hoursL >= 0) :
+        time = "{:02.0f}:{:02.0f}".format(hL,mL)
+        
+    l4 = tk.Label(root,text="Daily balance ", padx = -20,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0)
-    l4_1 = tk.Label(root,text="{:2.0f}".format(int (hL)),padx = 10,font=f_BO10,fg = "red")
+    l4_1 = tk.Label(root,text=time,padx = 10,font=f_BO10,fg = "red")
     l4_1.grid(row = 5, column = 1)
-    l4_4 = tk.Label(root,text="[hh]", font=f_BO10,fg="red")
-    l4_4.grid(row=5,column=2)
-
-    l5 = tk.Label(root,text="Minutes leftover ", padx = -40,font=f_BO10,fg = "red")   
-    l5.grid(row = 6, column = 0)
-
-    l5_1 = tk.Label(root,text="{:2.0f}".format(mL),padx = 10,font=f_BO10,fg = "red")
-    l5_1.grid(row = 6, column = 1)
-    l5_2 = tk.Label(root,text="[mm]", font=f_BO10,fg="red")
-    l5_2.grid(row=6,column=2)
+    l4_2 = tk.Label(root,text="[hh:mm]", font=f_BO10,fg="red")
+    l4_2.grid(row=5,column=2)
     
 
 #input part
