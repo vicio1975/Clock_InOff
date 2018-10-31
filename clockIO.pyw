@@ -78,6 +78,9 @@ def calc():
     
     hL = int(abs(hoursL))
     mL = round(abs(hoursL-hL) * 60)
+    if mL == 60:
+        mL = 0
+        hL = 1
 
     l3 = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
     l3.grid(row = 4, column = 0)
