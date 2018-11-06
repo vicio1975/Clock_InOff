@@ -8,7 +8,9 @@ Created on Fri Oct 26 14:16:05 2018
 #import numpy as num
 import tkinter as tk
 from tkinter import  messagebox
-#from PIL import ImageTk, Image
+import datetime as tt
+
+time = tt.datetime.now().strftime("%d/%m/%Y - %H:%M:%S")
 
 #Tkinter window
 root = tk.Tk() #new window
@@ -37,9 +39,7 @@ for i in range(10):
     root.rowconfigure(i, minsize=rc)
     root.columnconfigure(i, minsize=60)
 
-
 ###function 
-    
 def calc():
     hin = float(T1_.get())
     minIn = float(M1_.get())/60
@@ -101,9 +101,13 @@ def calc():
     l4_2 = tk.Label(root,text="[hh:mm]", font=f_BO10,fg="red")
     l4_2.grid(row=5,column=2)
     
-
 #input part
-#Clock in/out selection    
+#Clock in/out selection
+C0 = tk.Canvas(root, width=10, height=5)
+C0.grid(row=0,column=0)
+l0 = tk.Label(C0,text=time, padx = 20,font=f_BO10)
+l0.grid(row=0,column=0,sticky="e")
+
 l1 = tk.Label(root,text="Clock In ", padx = 20,font=f_BO10)
 l1.grid(row=1,column=0,sticky="e")
 l1_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
