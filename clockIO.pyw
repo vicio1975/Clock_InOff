@@ -8,9 +8,7 @@ Created on Fri Oct 26 14:16:05 2018
 #import numpy as num
 import tkinter as tk
 from tkinter import  messagebox
-import datetime as tt
-
-#time = tt.datetime.now().strftime("%d/%m/%Y - %H:%M:%S")
+import time
 
 #Tkinter window
 root = tk.Tk() #new window
@@ -40,14 +38,11 @@ for i in range(10):
     root.columnconfigure(i, minsize=60)
 
 ###function
-def tick():
-    # get the current local time from the PC
-    time = tt.datetime.now().strftime("%d/%m/%Y - %H:%M:%S")
-    l0 = tk.Label(C0,text=time, padx = 20,font=f_BO10)
-    l0.grid(row=0,column=0,sticky="e")
-    tick()    
-    
-    
+def click():
+    now = time.strftime("%d/%m/%Y - %H:%M")
+    ltime.configure(text=now)
+    root.after(1000, click)
+
 def calc():
     hin = float(T1_.get())
     minIn = float(M1_.get())/60
@@ -108,12 +103,13 @@ def calc():
     l4_1.grid(row = 5, column = 1)
     l4_2 = tk.Label(root,text="[hh:mm]", font=f_BO10,fg="red")
     l4_2.grid(row=5,column=2)
-    
-#input part
-#Clock in/out selection
-C0 = tk.Canvas(root, width=10, height=5)
-C0.grid(row=0,column=0)
 
+####time
+ltime = tk.Label(root, padx = 20,font=f_BO10)
+ltime.grid(row=0,column=0,sticky="e")
+    
+# input part
+# Clock in/out selection
 l1 = tk.Label(root,text="Clock In ", padx = 20,font=f_BO10)
 l1.grid(row=1,column=0,sticky="e")
 l1_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
@@ -174,7 +170,9 @@ c0.place(x=350,y=130)
 ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO12)
 ln.config( height = 2, width = 8)
 ln.place(x=350,y=185)
-   
-tick()
+###########
+
+#Main
+click()
 
 root.mainloop() #looping the frame
