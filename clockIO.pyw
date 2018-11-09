@@ -17,19 +17,19 @@ root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
 #Fonts
-f_8 = ("arial",8)
-f_9 = ("arial",9)
-f_10 = ("arial",10)
-f_12 = ("arial",12)
+f_8 = ("arial", 8)
+f_9 = ("arial", 9)
+f_10 = ("arial", 10)
+f_12 = ("arial", 12)
 
-f_IT8 = ("arial",8,"italic")
-f_IT8 = ("arial",8,"italic")
-f_IT9 = ("arial",9,"italic")
-f_IT11 = ("arial",11,"italic")
-f_BO7 = ("arial",7,"bold")
-f_BO9 = ("arial",9,"bold")
-f_BO10 = ("arial",10,"bold")
-f_BO12 = ("arial",12,"bold")
+f_IT8 = ("arial", 8, "italic")
+f_IT8 = ("arial", 8, "italic")
+f_IT9 = ("arial", 9, "italic")
+f_IT11 = ("arial", 11, "italic")
+f_BO7 = ("arial", 7, "bold")
+f_BO9 = ("arial", 9, "bold")
+f_BO10 = ("arial", 10, "bold")
+f_BO12 = ("arial", 12, "bold")
 
 ##columnconfig
 rc = 30
@@ -44,28 +44,22 @@ def click():
     root.after(1000, click)
 
 def calc():
-    hin = float(T1_.get())
-    minIn = float(M1_.get())/60
-    
-    hout = float(T2_.get())
-    minOut = float(M2_.get())/60
-    
-    hleft = float(T3_.get())
-    mleft = float(M3_.get())/60
-
     #In Time
-    hIN  = hin + minIn
+    hIN = float(T1_.get()) + float(M1_.get())/60
     #Out Time
-    hOUT = hout + minOut
+    hOUT = float(T2_.get()) + float(M2_.get())/60
     #Left time
-    hLEFTover = hleft + mleft    
+    hLEFTover = float(T3_.get()) + float(M3_.get())/60    
 
     if hOUT < hIN:
-        messagebox.showwarning("Error","Off time is lower than In time!\n\n Remember to use a 24h format")
+        messagebox.showwarning("Error",
+                               "Off time is lower than In time!\n\n Remember to use a 24h format")
     elif hIN == 0:
-        messagebox.showwarning("Error","Please add some input!\n\n ... remember to use a 24h format")
+        messagebox.showwarning("Error",
+                               "Please add some input!\n\n ... remember to use a 24h format")
     elif hIN < 6.5:
-        messagebox.showwarning("Error","Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
+        messagebox.showwarning("Error",
+                               "Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
 
     elif hOUT <= 12.5:
         luncH = 0
@@ -89,22 +83,22 @@ def calc():
         mL = 0
         hL = 1
 
-    l3 = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
-    l3.grid(row = 4, column = 0,stick="e")
-    l3_1 = tk.Label(root,text="{:02.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
-    l3_1.grid(row = 4, column = 1)
-    l3_2 = tk.Label(root,text="hours", padx = 10,font=f_BO10,fg="red")
-    l3_2.grid(row=4,column=2)
+    l3h = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
+    l3h.grid(row = 4, column = 0,stick="e")
+    l3h_1 = tk.Label(root,text="{:02.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
+    l3h_1.grid(row = 4, column = 1)
+    l3h_2 = tk.Label(root,text="hours", padx = 10,font=f_BO10,fg="red")
+    l3h_2.grid(row=4,column=2)
 
     if (hoursL < 0) :
-        time = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
+        ttt = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
         print(mL)
     elif (hoursL >= 0) :
-        time = "{:02.0f}:{:02.0f".format(hL,mL)
+        ttt = "{:02.0f}:{:02.0f}".format(hL,mL)
         
     l4 = tk.Label(root,text="Daily balance", padx = 10,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0,sticky="e")
-    l4_1 = tk.Label(root,text=time,padx = 10,font=f_BO10,fg = "red")
+    l4_1 = tk.Label(root,text=ttt,padx = 10,font=f_BO10,fg = "red")
     l4_1.grid(row = 5, column = 1)
     l4_2 = tk.Label(root,text="hh:mm",padx = 10, font=f_BO10,fg="red")
     l4_2.grid(row=5,column=2)
@@ -127,8 +121,8 @@ l2_1.grid(row=2,column=3)
 
 l3 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10)
 l3.grid(row=3,column=0,sticky="e")
-l3_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
-l3_1.grid(row=3,column=3)
+l3_2 = tk.Label(root,text="[hh:mm]", font=f_BO10)
+l3_2.grid(row=3,column=3)
 
 #Clock In 
 #hours
