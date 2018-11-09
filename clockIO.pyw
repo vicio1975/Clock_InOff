@@ -97,10 +97,10 @@ def calc():
     l3_2.grid(row=4,column=2)
 
     if (hoursL < 0) :
-        time = "-"+"{:d}:{:d}".format(hL,mL)
+        time = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
         print(mL)
     elif (hoursL >= 0) :
-        time = "{:d}:{:d}".format(hL,mL)
+        time = "{:02.0f}:{:02.0f".format(hL,mL)
         
     l4 = tk.Label(root,text="Daily balance", padx = 10,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0,sticky="e")
