@@ -66,6 +66,7 @@ def calc():
         messagebox.showwarning("Error","Please add some input!\n\n ... remember to use a 24h format")
     elif hIN < 6.5:
         messagebox.showwarning("Error","Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
+
     elif hOUT <= 12.5:
         luncH = 0
 
@@ -78,9 +79,12 @@ def calc():
     todayH = hOUT - hIN - luncH
     
     hoursL = (todayH + hLEFTover) - 7.5
-    
+ 
     hL = int(abs(hoursL))
-    mL = round(abs(hoursL-hL) * 60)
+    mL = round((abs(hoursL)-hL) * 60)
+    print(hoursL,hL,mL)
+
+    
     if mL == 60:
         mL = 0
         hL = 1
@@ -93,9 +97,10 @@ def calc():
     l3_2.grid(row=4,column=2)
 
     if (hoursL < 0) :
-        time = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
+        time = "-"+"{:d}:{:d}".format(hL,mL)
+        print(mL)
     elif (hoursL >= 0) :
-        time = "{:02.0f}:{:02.0f}".format(hL,mL)
+        time = "{:d}:{:d}".format(hL,mL)
         
     l4 = tk.Label(root,text="Daily balance", padx = 10,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0,sticky="e")
@@ -164,8 +169,8 @@ m3.insert("end", "00")
 
 #Buttons
 c0 = tk.Button(root,text="Calculate",command=calc,font=f_BO10)
-c0.config( height = 2, width = 7)
-c0.place(x=355,y=130)
+c0.config( height = 2, width = 9)
+c0.place(x=375,y=130)
 
 #ln = tk.Button(root,text="Exit",command=root.destroy,font=f_BO12)
 #ln.config( height = 2, width = 8)
@@ -174,5 +179,4 @@ c0.place(x=355,y=130)
 
 #Main
 click()
-
 root.mainloop() #looping the frame
