@@ -12,7 +12,7 @@ import time
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("465x180+100+100")
+root.geometry("475x180+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
@@ -98,15 +98,14 @@ def calc():
         
     l4 = tk.Label(root,text="Daily balance", padx = 10,font=f_BO10,fg = "red")   
     l4.grid(row = 5, column = 0,sticky="e")
-    l4_1 = tk.Label(root,text=ttt,padx = 10,font=f_BO10,fg = "red")
+    l4_1 = tk.Label(root, text=ttt, padx = 10, font = f_BO10, fg = "red")
     l4_1.grid(row = 5, column = 1)
-    l4_2 = tk.Label(root,text="hh:mm",padx = 10, font=f_BO10,fg="red")
+    l4_2 = tk.Label(root,text="hh:mm", padx = 10, font = f_BO10, fg = "red")
     l4_2.grid(row=5,column=2)
 
 ####time
-ltime = tk.Label(root, padx = 20,font=f_BO10)
-ltime.grid(row=0,column=0,sticky="e")
-    
+ltime = tk.Label(root, padx = 20, font = f_BO10)
+ltime.place(x=121, y=10)
 # input part
 # Clock in/out selection
 l1 = tk.Label(root,text="Clock In ", padx = 10,font=f_BO10)
