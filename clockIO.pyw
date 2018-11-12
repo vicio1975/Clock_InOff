@@ -9,19 +9,19 @@ Created on Fri Oct 26 14:16:05 2018
 import tkinter as tk
 from tkinter import  messagebox
 import datetime
-from PIL import Image,ImageTk  
+#from PIL import Image,ImageTk  
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("475x187+100+100")
+root.geometry("330x187+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
 
-canvas = tk.Canvas(root, width = 148, height = 80)      
-canvas.place(x=320,y=20)    
-img = ImageTk.PhotoImage(Image.open("buc_muni_co.jpg"))
-canvas.create_image(20,20, anchor="nw", image=img)
+#canvas = tk.Canvas(root, width = 148, height = 80)      
+#canvas.place(x=320,y=20)    
+#img = ImageTk.PhotoImage(Image.open("buc_muni_co.jpg"))
+#canvas.create_image(20,20, anchor="nw", image=img)
 
 
 #Fonts
@@ -88,24 +88,18 @@ def calc():
         mL = 0
         hL = 1
 
-    l3h = tk.Label(root,text="Today's hours", padx = 10,font=f_BO10,fg = "red")   
-    l3h.grid(row = 4, column = 0,stick="e")
-    l3h_1 = tk.Label(root,text="{:02.2f}".format(todayH),padx = 10,font=f_BO10,fg = "red")
-    l3h_1.grid(row = 4, column = 1)
-    l3h_2 = tk.Label(root,text="hours", padx = 10,font=f_BO10,fg="red")
-    l3h_2.grid(row=4,column=2)
+    todayText = "Today's hours\t"+"{:02.2f}".format(todayH)+"\thours"
+    l3h = tk.Label(root,text=todayText,font=f_BO10,fg = "red")   
+    l3h.place(x= 35, y= 128)
 
     if (hoursL < 0) :
         ttt = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
     elif (hoursL >= 0) :
         ttt = "{:02.0f}:{:02.0f}".format(hL,mL)
-        
-    l4 = tk.Label(root,text="Daily balance", padx = 10,font=f_BO10,fg = "red")   
-    l4.grid(row = 5, column = 0,sticky="e")
-    l4_1 = tk.Label(root, text=ttt, padx = 10, font = f_BO10, fg = "red")
-    l4_1.grid(row = 5, column = 1)
-    l4_2 = tk.Label(root,text="hh:mm", padx = 10, font = f_BO10, fg = "red")
-    l4_2.grid(row=5,column=2)
+    
+    ttt_ = "Daily balance\t"+ttt+"\thh:mm"    
+    l4 = tk.Label(root,text=ttt_,font=f_BO10,fg = "red")   
+    l4.place(x= 35,y=155)
 
 ####time
 ltime = tk.Label(root, padx = 20, font = f_BO10)
@@ -166,10 +160,11 @@ m3.insert("end", "00")
 
 #Buttons
 frame00 = tk.Frame(width=264,height=58, colormap="new",relief="sunken",bd=2)
-frame00.place(x=12,y=122)
+frame00.place(x=8,y=122)
+
 c0 = tk.Button(root,text= "Go!",command=calc,font=f_BO10)
-c0.config( height = 2, width = 2)
-c0.place(x = 286, y = 130)
+c0.config( height = 2, width = 4)
+c0.place(x = 280, y = 130)
 
 ###########
 
