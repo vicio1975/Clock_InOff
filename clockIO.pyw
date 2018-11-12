@@ -13,7 +13,7 @@ import datetime
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("330x187+100+100")
+root.geometry("345x187+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
@@ -64,13 +64,16 @@ def calc():
     if hOUT < hIN:
         messagebox.showwarning("Error",
                                "Off time is lower than In time!\n\n Remember to use a 24h format")
+        luncH = 0
     elif hIN == 0:
         messagebox.showwarning("Error",
                                "Please add some input!\n\n ... remember to use a 24h format")
+        luncH = 0
+        
     elif hIN < 6.5:
         messagebox.showwarning("Error",
                                "Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
-
+        luncH = 0
     elif hOUT <= 13.5:
         luncH = 0
 
