@@ -52,6 +52,7 @@ def click():
     texttime = "Today is {} - {}".format(now,wd)
     ltime.configure(text= texttime)
     root.after(1000, click)
+    return wd
 
 def calc():
     #In Time
@@ -103,6 +104,10 @@ def calc():
     ttt_ = "Daily balance\t"+ttt+"\thh:mm"    
     l4 = tk.Label(root,text=ttt_,font=f_BO10,fg = "red")   
     l4.place(x= 35,y=155)
+
+    if dd == "Friday":
+        messagebox.showinfo("message", "Happy Friday!!!")
+
 
 ####time
 ltime = tk.Label(root, padx = 20, font = f_BO10)
@@ -172,5 +177,5 @@ c0.place(x = 280, y = 130)
 ###########
 
 #Main
-click()
+dd = click()
 root.mainloop() #looping the frame
