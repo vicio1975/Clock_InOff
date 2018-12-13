@@ -9,7 +9,7 @@ Created on Fri Oct 26 14:16:05 2018
 import tkinter as tk
 from tkinter import  messagebox
 import datetime
-#from PIL import Image,ImageTk  
+from PIL import Image  
 
 #Tkinter window
 root = tk.Tk() #new window
@@ -85,7 +85,7 @@ def calc():
     
     hoursL = (todayH + hLEFTover) - 7.5
  
-    hL = int(abs(hoursL))
+    hL = int(abs( hoursL ))
     mL = round((abs(hoursL)-hL) * 60)
     
     if mL == 60:
