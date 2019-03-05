@@ -16,13 +16,7 @@ root = tk.Tk() #new window
 root.geometry("345x187+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
-
-
-#canvas = tk.Canvas(root, width = 148, height = 80)      
-#canvas.place(x=320,y=20)    
-#img = ImageTk.PhotoImage(Image.open("buc_muni_co.jpg"))
-#canvas.create_image(20,20, anchor="nw", image=img)
-
+root.iconbitmap(r'clock.ico')
 
 #Fonts
 f_8 = ("arial", 8)
