@@ -16,7 +16,7 @@ root = tk.Tk() #new window
 root.geometry("345x187+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
-root.iconbitmap(r'clock.ico')
+#root.iconbitmap(r'clock.ico')
 
 #Fonts
 f_8 = ("arial", 8)
