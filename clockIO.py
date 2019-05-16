@@ -9,9 +9,7 @@ Created on Fri Oct 26 14:16:05 2018
 import tkinter as tk
 from tkinter import  messagebox
 import datetime
-from PIL import Image
-
-#test for GIthub
+from PIL import Image  
 
 #Tkinter window
 root = tk.Tk() #new window
