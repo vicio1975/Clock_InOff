@@ -9,14 +9,13 @@ Created on Fri Oct 26 14:16:05 2018
 import tkinter as tk
 from tkinter import  messagebox
 import datetime
-from PIL import Image  
+import math
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("345x187+100+100")
+root.geometry("345x250+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
-#root.iconbitmap(r'clock.ico')
 
 #Fonts
 f_8 = ("arial", 8)
@@ -51,54 +50,53 @@ def click():
 def calc():
     #In Time
     hIN = float(T1_.get()) + float(M1_.get())/60
+    #Lunch
+    lunchIn = float(L1_.get()) + float(M2_.get())/60
+    lunchOut = float(L2_.get()) + float(M3_.get())/60
+    lunch = lunchOut - lunchIn
     #Out Time
-    hOUT = float(T2_.get()) + float(M2_.get())/60
-    #Left time
-    hLEFTover = float(T3_.get()) + float(M3_.get())/60    
+    hOUT = float(T2_.get()) + float(M4_.get())/60
+    
+    if lunch < 0.5:
+        lunch = 0.5
 
     if hOUT < hIN:
         messagebox.showwarning("Error",
-                               "Off time is lower than In time!\n\n Remember to use a 24h format")
-        luncH = 0
+                               "Orario di uscita inferiore dell'orario in ingresso!\n\n Ricorda di usare il formato 24h")
+        lunch = 0
     elif hIN == 0:
         messagebox.showwarning("Error",
-                               "Please add some input!\n\n ... remember to use a 24h format")
-        luncH = 0
-        
-    elif hIN < 6.5:
+                               "Aggiungi i dati corretti!\n\n ... usa il formato 24h")
+        lunch = 0
+    elif hIN < 7.5:
         messagebox.showwarning("Error",
-                               "Please add a valid input!\n\n ... InTime has to be bigger than 06:30")       
-        luncH = 0
-    elif hOUT <= 13.5:
-        luncH = 0
-
-    elif hOUT > 13.5:
-        luncH = 1
-
-    todayH = hOUT - hIN - luncH
+                               "Aggiungi i dati corretti!\n\n ... L'orario in ingresso deve essere superiore alle 07:30")
+        lunch = 0
     
-    hoursL = (todayH + hLEFTover) - 7.5
- 
-    hL = int(abs( hoursL ))
-    mL = round((abs(hoursL)-hL) * 60)
+    todayH = (hOUT - hIN) - lunch
     
-    if mL == 60:
-        mL = 0
-        hL = 1
-
-    todayText = "Today's hours\t"+"{:02.2f}".format(todayH)+"\thours"
+    todayText = "Ore totali lavorate..."+"{:02.2f}".format((todayH))
     l3h = tk.Label(root,text=todayText,font=f_BO10,fg = "red")   
-    l3h.place(x= 35, y= 128)
+    l3h.place(x= 55, y= 167)
 
-    if (hoursL < 0) :
-        ttt = "-"+"{:02.0f}:{:02.0f}".format(hL,mL)
-    elif (hoursL >= 0) :
-        ttt = "{:02.0f}:{:02.0f}".format(hL,mL)
+
+    extraH = todayH - 8
+
+    if extraH < 0:
+        extraH = 0
+        oreord = todayH
+    elif extraH >=0:
+        oreord = todayH - extraH
+        
+    todayOrd = "Ore ordinarie...{:02.2f}".format(oreord)
+    todayExt = "Ore extra...{:02.2f}".format(0.5 * math.floor(extraH * 2 + 0.5))
+
+    l4h = tk.Label(root,text=todayOrd,font=f_BO10,fg = "red")   
+    l4h.place(x= 55, y= 193)
+
+    l5h = tk.Label(root,text=todayExt,font=f_BO10,fg = "red")   
+    l5h.place(x= 55, y= 217)
     
-    ttt_ = "Daily balance\t"+ttt+"\thh:mm"    
-    l4 = tk.Label(root,text=ttt_,font=f_BO10,fg = "red")   
-    l4.place(x= 35,y=155)
-
     if dd == "Friday":
         messagebox.showinfo("message", "Happy Friday!!!")
 
@@ -109,20 +107,25 @@ ltime.place(x = 50, y = 10)
 
 # input part
 # Clock in/out selection
-l1 = tk.Label(root, text = "Clock In ", padx = 10, font=f_BO10)
-l1.grid(row=1, column=0, sticky="e")
-l1_1 = tk.Label(root, text="[hh:mm]", font=f_BO10)
-l1_1.grid(row=1, column=3)
+lab1 = tk.Label(root, text = "Ingresso ", padx = 10, font=f_BO10)
+lab1.grid(row=1, column=0, sticky="e")
+lab1_1 = tk.Label(root, text="   [hh:mm]", font=f_BO10)
+lab1_1.grid(row=1, column=3)
 
-l2 = tk.Label(root, text="Clock Out ", padx = 10,font=f_BO10)
-l2.grid(row=2,column=0, sticky="e")
-l2_1 = tk.Label(root,text="[hh:mm]", font=f_BO10)
-l2_1.grid(row=2,column=3)
+lab2 = tk.Label(root,text="Inizio Pranzo ", padx = 10,font=f_BO10)
+lab2.grid(row=2,column=0,sticky="e")
+lab2_1 = tk.Label(root,text="   [hh:mm]", font=f_BO10)
+lab2_1.grid(row=2,column=3)
 
-l3 = tk.Label(root,text="Hours leftover ", padx = 10,font=f_BO10)
-l3.grid(row=3,column=0,sticky="e")
-l3_2 = tk.Label(root,text="[hh:mm]", font=f_BO10)
-l3_2.grid(row=3,column=3)
+lab3 = tk.Label(root,text="Fine Pranzo ", padx = 10,font=f_BO10)
+lab3.grid(row=3,column=0,sticky="e")
+lab3_1 = tk.Label(root,text="   [hh:mm]", font=f_BO10)
+lab3_1.grid(row=3,column=3)
+
+lab4 = tk.Label(root, text="Uscita ", padx = 10,font=f_BO10)
+lab4.grid(row=4,column=0, sticky="e")
+lab4_1 = tk.Label(root,text="   [hh:mm]", font=f_BO10)
+lab4_1.grid(row=4,column=3)
 
 #Clock In 
 #hours
@@ -136,37 +139,52 @@ m1 = tk.Entry(root,textvariable= M1_ , width=10,justify="center",font=f_10)
 m1.grid(row=1,column=2)
 m1.insert("end", "00")  
 
-#Clock Out
+#Lunch in
 #hours
-T2_ = tk.StringVar()
-t2 = tk.Entry(root,textvariable= T2_ , width=10,justify="center",font=f_10)
-t2.grid(row=2,column=1)
-t2.insert("end", "00")  
+L1_ = tk.StringVar()
+l1 = tk.Entry(root,textvariable= L1_ , width=10,justify="center",font=f_10)
+l1.grid(row=2,column=1)
+l1.insert("end", "00")  
 #minutes
 M2_ = tk.StringVar()
 m2 = tk.Entry(root,textvariable= M2_ , width=10,justify="center",font=f_10)
 m2.grid(row=2,column=2)
-m2.insert("end", "00")  
+m2.insert("end", "00")
 
-#Hours Left
-T3_ = tk.StringVar()
-t3 = tk.Entry(root,textvariable= T3_ , width=10,justify="center",font=f_10)
-t3.grid(row=3,column=1)
-t3.insert("end", "00")  
-#minutes left
+#Lunch out
+#hours
+L2_ = tk.StringVar()
+l2 = tk.Entry(root,textvariable= L2_ , width=10,justify="center",font=f_10)
+l2.grid(row=3,column=1)
+l2.insert("end", "00")  
+#minutes
 M3_ = tk.StringVar()
 m3 = tk.Entry(root,textvariable= M3_ , width=10,justify="center",font=f_10)
 m3.grid(row=3,column=2)
-m3.insert("end", "00")  
+m3.insert("end", "00")
+
+#Clock Out
+#hours
+T2_ = tk.StringVar()
+t2 = tk.Entry(root,textvariable= T2_ , width=10,justify="center",font=f_10)
+t2.grid(row=4,column=1)
+t2.insert("end", "00")  
+#minutes
+M4_ = tk.StringVar()
+m4 = tk.Entry(root,textvariable= M4_ , width=10,justify="center",font=f_10)
+m4.grid(row=4,column=2)
+m4.insert("end", "00")
+
+
 ########### hours of work
 
-#Buttons
-frame00 = tk.Frame(width=264,height=58, colormap="new",relief="sunken",bd=2)
-frame00.place(x=8,y=122)
+#output
+frame00 = tk.Frame(width=210,height=80, colormap="new",relief="sunken",bd=2)
+frame00.place(x=40,y=164)
 
 c0 = tk.Button(root,text= "Go!",command=calc,font=f_BO10)
-c0.config( height = 2, width = 4)
-c0.place(x = 280, y = 130)
+c0.config( height = 2, width = 6)
+c0.place(x = 270, y = 180)
 
 ###########
 
