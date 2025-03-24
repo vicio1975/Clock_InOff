@@ -10,10 +10,12 @@ import tkinter as tk
 from tkinter import  messagebox
 import datetime
 import math
+import locale
+locale.setlocale(locale.LC_TIME, "it_IT")
 
 #Tkinter window
 root = tk.Tk() #new window
-root.geometry("345x250+100+100")
+root.geometry("650x250+100+100")
 root.title("Clock In/Out")
 root.resizable(width=False, height=False)
 
@@ -40,12 +42,16 @@ for i in range(10):
 
 ###function
 def click():
-    now = datetime.datetime.today().strftime("%d/%m/%Y - %H:%M")
-    wd = datetime.datetime.today().strftime("%A")
-    texttime = "Today is {} - {}".format(now,wd)
+    oggi = datetime.datetime.today()
+    oggi = oggi.strftime("%d/%m/%Y - %H:%M:%S - ")
+    giorno = datetime.datetime.today().strftime("%A")
+    giorno = giorno.capitalize()
+    texttime = "Oggi è {} {}".format(oggi, giorno)
     ltime.configure(text= texttime)
+
     root.after(1000, click)
-    return wd
+    
+    return giorno
 
 def calc():
     #In Time
@@ -97,9 +103,37 @@ def calc():
     l5h = tk.Label(root,text=todayExt,font=f_BO10,fg = "red")   
     l5h.place(x= 55, y= 217)
     
-    if dd == "Friday":
+    if giorno == "Venerdi":
         messagebox.showinfo("message", "Happy Friday!!!")
 
+   
+# Funzione per calcolare l'orario di uscita
+def calcola_uscita():
+    try:
+        # Ottieni l'orario di ingresso
+        orario_ingresso = ingresso_var.get()
+        ore_lavoro = 8  # Ore lavorative fisse
+
+        # Converti l'orario in datetime
+        ingresso_time = datetime.datetime.strptime(orario_ingresso, "%H:%M")
+
+        # Ottieni le ore extra (gestendo il caso in cui non venga inserito un valore)
+        try:
+            ore_extra = float(extra_var.get())  # Converte l'input in numero
+        except ValueError:
+            ore_extra = 0  # Se l'input non è valido, assume 0 ore extra
+
+        # Determina la durata della pausa pranzo
+        pausa_minuti = 30 if pausa_var.get() == "30 min" else 60  # 30 o 60 minuti
+
+        # Calcola l'orario di uscita
+        uscita_time = ingresso_time + datetime.timedelta(hours=ore_lavoro, minutes=pausa_minuti) + datetime.timedelta(hours=ore_extra)
+
+        # Mostra il risultato
+        uscita_label.config(text=f"Orario di uscita: {uscita_time.strftime('%H:%M')}", fg="blue")
+
+    except ValueError:
+        messagebox.showerror("Errore", "Inserisci un orario valido nel formato HH:MM")
 
 ####time
 ltime = tk.Label(root, padx = 20, font = f_BO10)
@@ -175,6 +209,34 @@ m4 = tk.Entry(root,textvariable= M4_ , width=10,justify="center",font=f_10)
 m4.grid(row=4,column=2)
 m4.insert("end", "00")
 
+########## TARGET
+# Sezione per l'orario di uscita
+ora_in = tk.Label(root, text="Orario di ingresso (HH:MM):", font=f_BO10).place(x=365, y=30)
+ingresso_var = tk.StringVar()
+ingresso_entry = tk.Entry(root, textvariable=ingresso_var, width=10, justify="center",font=f_BO10)
+ingresso_entry.place(x=550, y= 30)
+ingresso_entry.insert(0, "08:30")  # Default
+
+# Selezione della durata della pausa pranzo
+tk.Label(root, text="Durata pausa pranzo:", font=f_BO10).place(x=365, y=70)
+pausa_var = tk.StringVar(value="1 ora")
+pausa_menu = tk.OptionMenu(root, pausa_var, "30 min", "1 ora")
+pausa_menu.place(x=550, y=65)
+
+#Seleziona ore di straordinario
+extra_time = tk.Label(root, text="Ore straordinario :", font=f_BO10).place(x=400, y=110)
+extra_var = tk.StringVar()
+extra_entry = tk.Entry(root, textvariable=extra_var, width=10, justify="center", font=f_BO10)
+extra_entry.place(x= 550, y= 110)
+extra_entry.insert(0, "1")  # Default
+
+# Pulsante per calcolare l'orario di uscita
+calcola_btn = tk.Button(root, text="Calcola Uscita", command=calcola_uscita, font=f_BO10)
+calcola_btn.place(x=460, y=160)
+
+# Label per mostrare il risultato
+uscita_label = tk.Label(root, text="", font=f_BO10, fg="blue")
+uscita_label.place(x=400, y=200)
 
 ########### hours of work
 
